@@ -2,19 +2,42 @@
      margin: 0;
      padding: 0;
      box-sizing: border-box;
-     font-family: sans-serif;
+     /* font-family: sans-serif; */
 }
+body {
+  /* padding: 40px; */
+  /* background-color: #f0f0f0; */
+  font-family: monospace;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+.game-board {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: max-content;
+  align-items: center;
+}
+
 .board {
+  background: linear-gradient(45deg, teal, navy);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* gap: 5px; */
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  /* border-radius: 5px; */
-  border: 1px solid #000;
-     position: relative;
-     width: fit-content;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  padding: 0px;
+  background-color: #555;
+  position: relative;
+  width: fit-content;
+}
+.board-row {
+  display: flex;
+  gap: 2px;
 }
 .square {
   width: clamp(50px, 10vw, 100px);
@@ -22,15 +45,62 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 40px;
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 5px; */
   /* border: 1px solid #000; */
+  font-family: roboto, sans-serif;
 }
 
 .winning-square {
   transform: scale(1.2);
   transition: transform 0.3s ease-in-out;
 }
+.move-btn {
+  padding: 8px;
+  /* font-size: 16px; */
+  background-color: lightgray;
+  /* color: #fff; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &::before {
+    content: "#";
+    color: navy;    
+  }
+}
+.restart-btn {
+    background-color: rgba(255, 127, 80, 0.4);
+    border: none;
+    color: coral;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.moves-list {
+  list-style-type: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.status {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.current-move {
+  font-size: 20px;
+}
+
