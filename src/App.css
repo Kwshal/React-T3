@@ -2,13 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: sans-serif; */
-}
-
-body {
-  /* padding: 40px; */
-  /* background-color: #f0f0f0; */
-  font-family: monospace;
+  font-family: Courier, monospace;
 }
 
 .game {
@@ -29,10 +23,10 @@ body {
 }
 
 .board {
-  background: linear-gradient(45deg, rgb(112, 64, 224), palegreen);
+  background: linear-gradient(45deg, navy);
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  gap: min(10px, 2vw);
+  gap: var(--board-gap);
   padding: 0px;
   background-color: #555;
   position: relative;
@@ -48,7 +42,7 @@ body {
 
 .board-row {
   display: flex;
-  gap: min(10px, 2vw);
+  gap: var(--board-gap);
 }
 
 .square {
@@ -59,45 +53,71 @@ body {
   font-size: clamp(40px, 20vw, 100px);
   cursor: pointer;
   background-color: #fff;
-  /* border: 1px solid #ccc; */
-  /* border-radius: 5px; */
-  /* border: 1px solid #000; */
-  font-family: roboto, sans-serif;
+  font-family: sans-serif !important;
+
+  & .winning-square {
+    color: #000;
+    font-family: sans-serif;
+    font-weight: bolder;
+  }
 }
 
-.winning-square {
-  color: #000;
+button {
+  font-family: sans-serif;
 }
 
 .move-btn {
   width: 100%;
   font-size: min(10vw, 40px);
-  background-color: rgb(180, 180, 200);
-  /* color: #fff; */
+  background-color: whitesmoke;
   border: none;
   border-radius: min(20px, 5vw);
   cursor: pointer;
+  position: relative;
+  color: lightgray;
 
   &::before {
     content: "#";
-    color: navy;
   }
+
+  &.previous-move {
+    background-color: lightgray;
+    color: #000;
+  }
+
+  &.current-move {
+    background: navy;
+    color: white;
+  }
+
+  /* &.win::after {
+    content: '🏆';
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 16px;
+    height: fit-content;
+    background: yellow;
+    border-radius: 5px;
+  } */
 }
 
 .restart-btn {
   font-size: min(10vw, 40px);
-  background-color: rgb(180, 180, 200);
+  background-color: navy;
   border: none;
-  color: #000;
+  color: white;
   padding: 10px 20px;
   border-radius: min(20px, 5vw);
+  width: fit-content;
+  align-self: center;
+  /* margin-top: 15px; */
 }
 
 .game-info {
   display: flex;
   flex-direction: column;
   gap: min(50px, 2vh);
-  align-items: center;
 
   & .moves-list {
     list-style-type: none;
@@ -106,6 +126,7 @@ body {
     width: min(80vw, 300px);
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
+    align-self: center;
 
     & li {
       aspect-ratio: 1/1;
@@ -113,24 +134,26 @@ body {
       justify-content: center;
     }
   }
+
   h2 {
-    font-size: min(10vw, 30px);
-    text-align: center;
+    font-size: min(15vw, 30px);
   }
-  h4 {
+
+  .tip {
     font-size: min(10vw, 20px);
-    text-align: center;
+
+    &::before {
+      content: 'Tip:';
+      font-weight: bolder;
+      margin-right: 5px;
+    }
   }
 }
 
 .status {
-  font-size: min(8vw, 50px);
+  font-size: min(9vw, 50px);
   font-weight: 600;
   text-wrap: wrap;
   text-transform: uppercase;
   text-align: center;
-
-  &.win {
-    color: gold;
-  }
 }
