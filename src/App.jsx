@@ -10,39 +10,36 @@ function Square({ value, onSquareClick }) {
 }
 
 function Board({ xIsNext, squares, onPlay }) {
+  const player = xIsNext ? 'X' : 'O'
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = 'X';
-    } else {
-      nextSquares[i] = 'O';
-    }
+    nextSquares[i] = player;
     onPlay(nextSquares);
   }
 
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner[0];
+    status = "Player '" + player + "' wins";
   } else if (!squares.includes(null)) {
       status = 'Draw !';
   }
   else {
-    status = 'Current player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Current player: ' + player;
   }
 
   return (
     <>
-      <div className="status">{status}</div>
+      <div className={`status ${winner? 'win':''}`}>{status}</div>
       <div className="board">
         {[0, 1, 2].map((row) => (
           <div className="board-row" key={row}>
             {[0, 1, 2].map((col) => {
               const displayValue = winner && winner.includes(row * 3 + col) ? (
-                <strong className="winning-square">{squares[row * 3 + col]}</strong>
+                <span className="winning-square">{squares[row * 3 + col]}</span>
               ) : (
                 squares[row * 3 + col]
               );
@@ -97,9 +94,9 @@ export default function Game() {
       </div>
 
       <div className="game-info">
+        <h2>(Moves)</h2>
         <ol className='moves-list'>{moves}</ol>
-        <p>(Moves)</p>
-        <h6>Tip: click the # buttons to go back in time.</h6>
+        <h4>Tip: Click the # buttons to go back in time.</h4>
         <button className='restart-btn' onClick={() => window.location.reload()}>Restart</button>
       </div>
     </div>
@@ -120,7 +117,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return lines[i];
     }
   }
   return null;
